@@ -1,0 +1,15 @@
+/*html {
+    background-image: url("/static/images/cash-register.jpg");
+    background-color: #333;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 992px) {
+
+    html {
+        background-size: 1000px 700px;  Force the image to its minimum width 
+    }
+
+}*/

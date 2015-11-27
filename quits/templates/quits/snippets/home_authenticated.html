@@ -1,0 +1,54 @@
+{% if msg %}
+<div class="card green lighten-5">
+    {{ msg }}
+</div>
+{% endif %}
+
+<div class="row center">
+    <div id="group_list" class="col s12">
+        <h2 class="header center green-text text-darken-3{% if user.groups.first %} tooltip tooltip-bottom" title="A positive balance (green) means the group owes you money. A negative balance (red) means you owe the group money. Click on a group to view it.{% endif %}">My groups</h2>
+
+        {% if group_balances %}
+        <table id="overview_table" class="centered bordered hoverable">
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>My Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group_balance in group_balances %}
+                <tr class="clickable-row cursor_pointer {% if group_balance.1 > 0 %}green {% elif group_balance.1 < 0 %}red {% endif %}lighten-5" data-url="{% url 'view_group' group_balance.0.id %}">
+                    <td><a href="/groups/{{ group_balance.0.id }}/view_group/">{{ group_balance.0 }}</a></td>
+                    <td>{{ group_balance.2 }}{{ group_balance.1 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <br>
+        <a id="create_new_group_button" class="btn-large btn-mob-wide green {% if user.groups.count == 0 %}tooltip{% endif %}" href="{% url 'new_group' %}"{% if user.groups.count == 0 %} title="Now create a group and it will appear here."{% endif %}>Create new group</a>
+        <br>
+        <br>
+
+        {% if not group_balances %}
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div id="id_group_help_card" class="card-panel z-depth-1 flow-text">
+            <i class="material-icons">navigation</i>
+            <br>
+            <span class="black-text">
+            Get started by creating a group.
+            <br>
+            Look out for the help button.
+            </span>
+            <br>
+            <a class="btn-floating red help-button" href="javascript:;">
+                <i class="large material-icons">help_outline</i>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>

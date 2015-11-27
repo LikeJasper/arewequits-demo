@@ -1,0 +1,22 @@
+{% extends "account/base.html" %}
+{% load account %}
+
+{% block content %}
+<h2 class="green-text">Confirm Email Address</h2>
+
+{% if confirmation %}
+        
+<p>{% with confirmation.email_address.email as email %}Click to confirm your email address: {{ email }}.{% endwith %}</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+    {% csrf_token %}
+    <a class="btn btn-large green" type="submit">Confirm</a>
+</form>
+
+{% else %}
+
+<p>Sorry, looks like this email confirmation link expired already. Please <a href="{% url 'edit_profile' %}">ask for a new one</a>.</p>
+
+{% endif %}
+
+{% endblock %}

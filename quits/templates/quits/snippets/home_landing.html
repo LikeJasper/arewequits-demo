@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<br>
+<div id="welcome_message" class="flow-text">
+    <div class="row center no-margin-bottom">
+        <h1 class="header center no-margin-bottom green-text text-darken-3">Share expenses like a boss</h1>
+    </div>
+    <div class="row center no-margin-bottom valign-wrapper">
+        <div class="col s12 m6">
+            <div class="row center no-margin-bottom">
+                <a id="cta_sign_up_button" class="modal-trigger btn-large btn-mob-wide red" href="#modal-signup">Sign up</a>
+                <br class="hide-on-med-and-up">
+                <br class="hide-on-med-and-up">
+                <a id="cta_log_in_button" class="modal-trigger btn-large btn-mob-wide green" href="#modal-login">Log in</a>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="row center no-margin-bottom">
+                <img class="responsive-img" src="{% static 'images/devices.png' %}" alt="devices">
+            </div>
+        </div>
+    </div>
+    <div class="row center">
+        <h5 class="no-margin-top flow-text green-text text-darken-3">Keep track - Stick to your budget - Stay friendly</h5>
+    </div>
+</div>
+{% include "quits/snippets/signup_modal.html" %}
+{% include "quits/snippets/login_modal.html" %}

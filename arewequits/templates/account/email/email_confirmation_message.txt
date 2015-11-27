@@ -1,0 +1,11 @@
+{% autoescape off %}
+Welcome to AreWeQuits?
+
+To confirm your email address, click on this link:
+{{ activate_url }}
+
+If that doesn't work, copy and paste it into a web browser.
+
+If you weren't expecting this email maybe somebody else entered your email address by mistake. You can just ignore it, they can't do anything without this confirmation.
+
+{% endautoescape %}

@@ -1,0 +1,40 @@
+{% extends "quits/base.html" %}
+
+{% block content %}
+    
+    <h4 class="green-text text-darken-3">Activity log for {{ group.name }}</h4>
+    <table id="id_log_table" class="striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for edit in edits %}
+                <tr class="log-entry">
+                    <td>{{ edit.date }}</td>
+                    <td>{{ edit.user }}
+                    {% if edit.change == 'name' %} changed the group's name.
+                    {% elif edit.change == 'curren' %} changed the group's currency.
+                    {% elif edit.change == 'addmem' %} added {{ edit.added_member }} to the group.
+                    {% else %}
+                        {% if edit.change == 'create' %} created
+                        {% elif edit.change == 'delete' %} deleted
+                        {% elif edit.change == 'edit' %} edited
+                        {% elif edit.change == 'restor' %} restored
+                        {% endif %}
+                        <a class="payment" href="{% url 'edit_payment' group.id edit.payment.id %}">a payment</a>.</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            <tr class="log-entry">
+                <td>{{ quits_group.creation_date }}</td>
+                <td>{{ quits_group.owner }} created the group.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_group' group.id %}">Back to group</a>
+
+{% endblock content %}

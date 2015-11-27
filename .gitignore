@@ -1,0 +1,11 @@
+*.py[cod]
+__pycache__/
+db.sqlite3
+.DS_Store
+arewequits/fixtures
+arewequits/media
+arewequits.sublime-*
+.coverage
+htmlcov/
+quits/migrations/
+quits_users/migrations/

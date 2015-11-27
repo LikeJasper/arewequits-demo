@@ -1,0 +1,81 @@
+{% extends "quits/base.html" %}
+{% load staticfiles %}
+{% load materializecss %}
+{% load quits_extras %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Add a new payment</h2>
+    <form id="create_payment_form" class="col s12" method="POST" action="">
+        <div class="row">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    {{ form.date }}
+                    <label for="input_date">Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    {{ form.amount|html_class:"validate" }}
+                    <label for="input_amount">Amount</label>
+                    {{ form.amount.errors }}
+                </div>
+                <div class="input-field col s6 m3">
+                    <i class="material-icons">{{ form.icon }}</i>
+                    <label for="input_icon" class="active">Category</label>
+                </div>
+            </div>
+            <div class="row no-margin-bottom">
+                <div class="input-field col s12">
+                    {{ form.description|html_class:"validate" }}
+                    <label for="input_description">Description</label>
+                    {{ form.description.errors }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <br>
+                    {{ form.who_paid|materializecss }}
+                </div>
+                <div class="input-field who-for col s12 m6">
+                    <a id="id_check_all_who_for_button" href="javascript:;">Uncheck all</a>
+                    <br>
+                    {{ form.who_for|materializecss }}
+                    {{ form.who_for.errors|customise_who_for_error_message }}
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s12">
+                    {% csrf_token %}
+                    <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_group' group_id %}">Cancel</a>
+                    <input id="input_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Add payment">
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+</div>
+{% endblock content %}
+
+{% block help_button %}
+    {% include "quits/snippets/help_button_payments.html" %}
+{% endblock help_button %}
+
+{% block page_scripts %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: true, // Creates a dropdown to control year
+    onStart: function () {
+        var date = new Date();
+        this.set('select', [date.getFullYear(), date.getMonth(), date.getDate()]);
+    },
+    clear: '',
+    close: 'OK',
+    format: 'dd mmmm, yyyy',
+});
+</script>
+<script src="{% static 'js/inittooltip.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/check_all.js' %}" type="text/javascript"></script>
+{% endblock page_scripts %}

@@ -1,0 +1,71 @@
+{% extends "quits/base.html" %}
+{% load materializecss %}
+{% load quits_extras %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Create a new group</h2>
+    <form id="create_group_form" class="col s12" method="POST" action="{% url 'new_group' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="row no-margin-bottom">
+                <div class="input-field col s12 m9">
+                    {{ group_form.name|html_class:"validate" }}
+                    {{ group_form.name.errors }}
+                </div>
+                <div class="input-field col s12 m3 large-icon">
+                    {{ quits_group_form.currency }}
+                </div>
+            </div>
+            <div class="row no-margin-bottom">
+                {% if group_form.contacts %}
+                <div class="input-field col s12 m6">
+                    <br>
+                    {{ group_form.contacts|materializecss }}
+                    <br>
+                </div>
+                <div class="input-field col s12 m6">
+                {% else %}
+                <div class="input-field col s12">
+                {% endif %}
+                    <div id="input_emails">
+                        <br>
+                        <br>
+                        {{ group_form.emails_0|html_class:"validate" }}
+                        {{ group_form.emails_0.errors|customise_error_message }}
+                        <br>
+                        {{ group_form.emails_1|html_class:"validate" }}
+                        {{ group_form.emails_1.errors|customise_error_message }}
+                        <br>
+                        {{ group_form.emails_2|html_class:"validate" }}
+                        {{ group_form.emails_2.errors|customise_error_message }}
+                        <br>
+                        {{ group_form.emails_3|html_class:"validate" }}
+                        {{ group_form.emails_3.errors|customise_error_message }}
+                        <br>
+                        {{ group_form.emails_4|html_class:"validate" }}
+                        {{ group_form.emails_4.errors|customise_error_message }}
+                        <label for="input_emails" class="left-align">Invite members by email address (we'll send them an email if they're not already signed up)</label>
+                    </div>
+                </div>
+            {{ group_form.non_field_errors }}
+            </div>
+            <div class="row center">
+                <div class="input-field col s12">
+                    <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'home' %}">Cancel</a>
+                    <input id="input_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Save group">
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+</div>
+{% endblock content %}
+
+{% block page_scripts %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+{% endblock page_scripts %}

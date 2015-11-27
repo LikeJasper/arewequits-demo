@@ -1,0 +1,70 @@
+<div id="payments_list" class="row center">
+    {% if not payments %}
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+      <div class="card-panel z-depth-1 flow-text">
+        <span class="black-text">
+        Now add your first payment.
+        </span>
+        <br>
+        <i class="material-icons rotate-180">navigation</i>
+      </div>
+    </div>
+    {% endif %}
+    <h4 class="col s12 header center green-text text-darken-3 tooltip tooltip-bottom" title="{% if payments %}Click on a payment to see more information. Payments in green are where you paid, payments in red are where you were paid for.{% else %}When you add payments they'll appear below.{% endif %}">Payments</h4>
+    <div class="col s12">
+        {% if payments %}
+        <a id="id_expand_all_payments_button" class="btn btn-mob-wide grey darken-3" href="javascript:;">Expand all</a>
+        {% endif %}
+        <a id="id_activity_log" class="btn btn-mob-wide grey darken-3" href="{% url 'activity_log' group.id %}">Activity log</a>
+        <a id="create_new_payment_button" class="btn btn-mob-wide green" href="{% url 'new_payment' group.id %}">Add new payment</a>
+    </div>
+    <br>
+    <br>
+    {% if payments %}
+    <div class="col s12">
+        <ul id="id_payments_ul" class="collapsible left-align" data-collapsible="expandable">
+        {% for payment in payments %}
+            <li>
+                <div class="collapsible-header {% if payment.who_paid == user %}green{% elif user in payment.who_for.all %}red{% endif %} lighten-5">
+                    <div class="row">
+                        <div class="col s2 m1">
+                            <i class="material-icons">{{ payment.icon }}</i>
+                        </div>
+                        <div class="col s4 m4">
+                            {{ payment.date|date:"j M Y" }}
+                        </div>
+                        <div class="col s4 m5 truncate green-text text-darken-3">
+                            {{ payment.who_paid }} paid
+                        </div>
+                        <div class="col s2 m1 right-align">
+                            {{ group.quitsgroup.currency }}{{ payment.amount }}
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <br>
+                        <div class="col s11 m4 offset-s1 offset-m1 break-word">
+                            <em>Description:</em><br>
+                            {{ payment.description }}<br><br>
+                        </div>
+                        <div class="col s11 offset-s1 hide-on-med-and-up green-text text-darken-3">
+                            {{ payment.who_paid }} paid <br><br>
+                        </div>
+                        <div class="col s11 m5 offset-s1 red-text text-darken-3">
+                            <em class="black-text">Paid for:</em><br>
+                            {% for who_for in payment.who_for.all %}
+                                {{ who_for }}<br>
+                            {% endfor %}
+                        </div>
+                        <div class="col s11 m1 right-align">
+                            <a href="{% url 'edit_payment' group.id payment.id %}"><i class="material-icons">mode_edit</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+<!--Import jQuery before materialize.js and tooltipster-->
+<script type="text/javascript" src="{% static 'js/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/materialize/materialize.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.tooltipster.min.js' %}"></script>
+<script src="{% static 'js/tweecool.js' %}"></script>
+<script>
+$( document ).ready(function(){
+    $('.side-nav-button').sideNav({
+        closeOnClick: true
+    });
+    // $('#mobile_tos').click(function(){
+    //     $('.side-nav-button').sideNav('hide');
+    // });
+    $('.modal-trigger').leanModal();
+    $('#latest-tweet').tweecool({
+        username: 'arewequits',
+        limit: 1,
+        profile_image: false,
+        show_time: false
+    });
+});
+</script>
+<!--Twitter follow button-->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

@@ -1,0 +1,8 @@
+{% extends "quits/base.html" %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Add members to {{ group_name }}</h2>
+    {% include "quits/snippets/add_members_form.html" %}
+</div>
+{% endblock content %}

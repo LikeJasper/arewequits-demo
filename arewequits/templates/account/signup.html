@@ -1,0 +1,79 @@
+{% extends "account/base.html" %}
+{% load quits_extras %}
+
+{% block page_styling %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock page_styling %}
+
+{% block content %}
+
+<h2 class="header content green-text">Sign up</h2>
+
+{% if socialaccount.providers %}
+
+  <div class="socialaccount_ballot">
+    <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+    <div class="login-or">--- or ---</div>
+  </div>
+
+  {% include "socialaccount/snippets/login_extra.html" %}
+{% endif %}
+
+<form class="signup" id="sign_up_form" method="post" action="{% url 'account_signup' %}">
+  <div class="row">
+    <div class="col s12 m8 l6 offset-m2 offset-l3">
+      {% csrf_token %}
+      {{ form.non_field_errors|customise_error_message }}
+      <div class="row no-margin-bottom">
+        <div class="input-field">
+          <i class="material-icons prefix">person_pin</i>
+          {{ form.first_name|html_placeholder:"First name"|html_class:"validate" }}
+          {{ form.first_name.errors }}
+        </div>
+      </div>
+      <div class="row no-margin-bottom">
+        <div class="input-field">
+          <i class="material-icons prefix">person_pin</i>
+          {{ form.last_name|html_placeholder:"Last name"|html_class:"validate" }}
+          {{ form.last_name.errors }}
+        </div>
+      </div>
+      <div class="row no-margin-bottom">
+        <div class="input-field">
+          <i class="material-icons prefix">email</i>
+          {{ form.email|html_placeholder:"Email address"|html_class:"validate" }}
+          {% if not request.session.inactive_user %}
+            {{ form.email.errors|customise_error_message }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="row no-margin-bottom">
+        <div class="input-field">
+          <i class="material-icons prefix">lock</i>
+          {{ form.password1|html_class:"validate"|minlength }}
+          {{ form.password1.errors|customise_error_message }}
+        </div>
+      </div>
+      <div class="row no-margin-bottom center">
+          <div class="input-field left-align">
+            {{ form.terms_agree|html_class:"validate" }}
+            <label for="id_terms_agree">I have read and agree to the <a class="modal-trigger" href="#modal-tos">terms of service and privacy policy</a>.</label>
+            <br><br>
+            <span class="center">{{ form.terms_agree.errors }}</span>
+          </div>
+      </div>
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m8 l6 offset-m2 offset-l3">
+      <button id="signup_submit" type="submit" class="input-field btn-large btn-auth flow-text red">Sign Up</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

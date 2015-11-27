@@ -1,0 +1,6 @@
+Django==1.8.3
+django-allauth==0.21.0
+django-blog-zinnia==0.15.2
+django-materializecss-form==0.0.64
+Markdown==2.6.2
+requests==2.7.0

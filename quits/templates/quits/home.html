@@ -1,0 +1,30 @@
+{% extends "quits/base.html" %}
+
+{% load staticfiles %}
+
+{% block page_styling %}
+    {% if not user.is_authenticated %}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    {% endif %}
+{% endblock page_styling %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% include "quits/snippets/home_authenticated.html" %}
+    {% else %}
+        {% include "quits/snippets/home_landing.html" %}
+    {% endif %}
+{% endblock content %}
+
+{% block help_button %}
+    {% if user.is_authenticated %}
+        {% include "quits/snippets/help_button.html" %}
+    {% endif %}
+{% endblock help_button %}
+
+{% block page_scripts %}
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/inittooltip.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/table_links.js' %}" type="text/javascript"></script>
+    {% endif %}
+{% endblock page_scripts %}

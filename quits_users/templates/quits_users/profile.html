@@ -1,0 +1,25 @@
+{% extends "quits/base.html" %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Account details</h2>
+</div>
+<div class="row">
+    <table class="col s12 m8 l6 offset-m2 offset-l3 bordered">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}{% else %}(<a href="{% url 'edit_profile' %}">Set name</a>){% endif %}</td>
+            </tr>
+            <tr>
+                <th>Email address</th>
+                <td>{{ user.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="row center">
+    <a id="edit_profile_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'edit_profile' %}">Edit details</a>
+</div>
+{% endblock content %}

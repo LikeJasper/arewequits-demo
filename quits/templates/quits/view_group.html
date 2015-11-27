@@ -1,0 +1,21 @@
+{% extends "quits/base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="header center green-text text-darken-3 tooltip tooltip-bottom" title="The group owes money to members with positive balances (green). Members with negative balances (red) owe money to the group.">{{ group.name }} <a id="edit_group_button" href="{% url 'edit_group' group.id %}"><i class="material-icons">mode_edit</i></a></h2>
+    {% include "quits/snippets/group_members_table.html" %}
+    <br>
+    {% include "quits/snippets/payments_table.html" %}
+{% endblock content %}
+
+{% block help_button %}
+    {% include "quits/snippets/help_button.html" %}
+{% endblock help_button %}
+
+{% block page_scripts %}
+    <script src="{% static 'js/inittooltip.js' %}" type="text/javascript"></script>
+    {% if payments %}
+        <script src="{% static 'js/expand_all.js' %}" type="text/javascript"></script>
+    {% endif %}
+{% endblock page_scripts %}

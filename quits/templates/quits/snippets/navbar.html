@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<div class="navbar-fixed">
+    <nav id="nav" class="green" role="navigation">
+        <div id="menu_bar" class="nav-wrapper container">
+            <!-- <a id="logo" class="brand-logo center" href="/">AreWeQuits?</a> -->
+            <a id="logo" class="brand-logo center" href="/">
+                <div class="valign-wrapper">
+                    <img id="awq-logo" src="{% static 'images/arewequitswhite-logoonly-s.png' %}" alt="AreWeQuits? logo">
+                    <img id="awq-logotext" class="hide-on-small-only" src="{% static 'images/arewequitswhite-textonly-s.png' %}" alt="AreWeQuits? logotext">
+                </div>
+            </a>
+            <a id="menu" href="#" data-activates="id_side_menu" class="side-nav-button"><i class="mdi-navigation-menu"></i></a>
+            <ul id="id_side_menu" class="side-nav">
+                <h4 class="center black-text">AreWeQuits?</h4>
+                <!--<h4><img id="awq-logo-sidebar" src="{% static 'images/arewequitswhite-logoonly-s.png' %}" alt="AreWeQuits? logo"></h4>-->
+                <li><a id="mobile_home_page" href="{% url 'home' %}">{% if user.is_authenticated %}My groups{% else %}Home{% endif %}</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'view_profile' %}">Account details</a></li>
+                {% else %}
+                <li><a id="mobile_cta_sign_up_button" href="{% url 'account_signup' %}">Sign up</a></li>
+                <li><a id="mobile_cta_log_in_button" href="{% url 'account_login' %}">Log in</a></li>
+                {% endif %}
+                <li><a id="mobile_about_page" href="{% url 'about' %}">About</a></li>
+                <li><a id="mobile_tos" class="modal-trigger" href="#modal-tos">Terms of service</a></li>
+                <li><a id="mobile_contact_page" href="mailto:arewequits@gmail.com" target="_blank">Contact</a></li>
+                {% if user.is_authenticated %}
+                <form id="logout_form" method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <li class="cursor_pointer">
+                        <a id="logout" onclick="document.getElementById('logout_form').submit(); return false;" type="submit" value="Log out">Log out</a>
+                    </li>
+                </form>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="hide-on-small-only green white-text darken-3">
+    <div id="tagline" class="nav-wrapper container valign-wrapper">
+        <div class="valign marquee truncate">
+            <div>
+                <div id="latest-tweet" class="valign-wrapper"></div>
+            </div>
+        </div>
+        <a class="twitter-follow-button right" href="https://twitter.com/arewequits"><span class="invisible">Follow @arewequits</span></a>
+    </div>
+</div>

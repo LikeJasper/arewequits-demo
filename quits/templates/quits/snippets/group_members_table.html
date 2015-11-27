@@ -1,0 +1,16 @@
+<div id="group_members" class="row center">
+    <table id="members_table" class="centered bordered">
+        <thead>
+            <tr>
+                <th>Member</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        {% for entry in member_balances %}
+            <tr class="{% if entry.group_total > 0 %}green{% elif entry.group_total < 0 %}red{% endif %} lighten-5">
+                <td class="member">{{ entry.member }}</td>
+                <td class="balance">{{ group.quitsgroup.currency }}{{ entry.group_total }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

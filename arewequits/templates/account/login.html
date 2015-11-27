@@ -1,0 +1,62 @@
+{% extends "account/base.html" %}
+{% load quits_extras %}
+
+{% block page_styling %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock page_styling %}
+
+{% block content %}
+
+<h2 class="header content green-text">Log in</h2>
+
+{% if socialaccount.providers %}
+
+  <div class="socialaccount_ballot">
+    <ul class="socialaccount_providers">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+    <div class="login-or">--- or ---</div>
+  </div>
+
+  {% include "socialaccount/snippets/login_extra.html" %}
+
+{% endif %}
+
+<form id="login_form" class="login" method="POST" action="{% url 'account_login' %}">
+  <div class="row">
+    <div class="col s12 m8 l6 offset-m2 offset-l3">
+      {% csrf_token %}
+      {{ form.non_field_errors|customise_error_message }}
+      <div class="row no-margin-bottom center">
+        <div class="input-field">
+          <i class="material-icons prefix">email</i>
+          {{ form.login|html_placeholder:"Email address" }}
+          {{ form.login.errors|customise_error_message }}
+        </div>
+      </div>
+      <div class="row no-margin-bottom center">
+        <div class="input-field">
+          <i class="material-icons prefix">lock</i>
+          {{ form.password }}
+          {{ form.password.errors|customise_error_message }}
+        </div>
+      </div>
+      <div class="row center">
+        <div class="input-field left-align">
+          {{ form.remember }}
+          <label for="id_remember">Remember me</label>
+        </div>
+      </div>
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+      {% endif %}
+    </div>
+    <div class="col s12 m8 l6 offset-m2 offset-l3">
+      <button id="login_submit" class="primaryAction input-field btn-large btn-auth flow-text green" type="submit">Log In</button>
+      <br><br>
+      <a class="button secondaryAction input-field" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

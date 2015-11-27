@@ -1,0 +1,15 @@
+{% extends "quits/base.html" %}
+
+{% block page_styling %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock page_styling %}
+
+{% block content %}
+    <div id="long_description" class="section">
+        {% include "quits/text/about_text.html" %}
+    </div>
+    <div class="divider"></div>
+    <div id="id_how_it_works" class="section">
+        {% include "quits/text/how_it_works.html" %}
+    </div>
+{% endblock content %}

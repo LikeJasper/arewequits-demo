@@ -1,0 +1,115 @@
+{% extends "quits/base.html" %}
+{% load materializecss %}
+{% load quits_extras %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Edit existing payment</h2>
+    <form id="edit_payment_form" class="col s12" method="POST" action="">
+        <div class="row">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    {{ form.date }}
+                    <label for="input_date">Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    {{ form.amount|html_class:"validate" }}
+                    {{ form.amount.errors }}
+                    <label for="input_amount">Amount</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <i class="material-icons">{{ form.icon }}</i>
+                    <label for="input_icon" class="active">Category</label>
+                </div>
+            </div>
+            <div class="row no-margin-bottom">
+                <div class="input-field col s12">
+                    {{ form.description|html_class:"validate" }}
+                    {{ form.description.errors }}
+                    <label for="input_description">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <br>
+                    {{ form.who_paid|materializecss }}
+                    <label for="input_who_paid">Who paid?</label>
+                </div>
+                <div class="input-field who-for col s12 m6">
+                    <a id="id_check_all_who_for_button" href="javascript:;">Uncheck all</a>
+                    <br>
+                    {{ form.who_for|materializecss }}
+                    <label for="input_who_for">Who for?</label>
+                    {{ form.who_for.errors|customise_who_for_error_message }}
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s12">
+                    <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_group' group_id %}">Cancel</a>
+                    {% csrf_token %}
+                    <input id="input_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Save changes">
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if active %}
+    <form id="delete_payment_form" class="col s12" method="POST" action="{% url 'delete_payment' group_id %}">
+        {% csrf_token %}
+        {{ delete_form.payment }}
+        <div class="row">
+            <div class="switch">
+            <br>
+                <label>
+                  <input class="switch-confirm" type="checkbox">
+                  <span id="id_enable_delete" class="lever"></span>
+                  Enable delete button
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <button id="input_delete" class="btn-large btn-auth disabled" name="submit" type="submit" disabled>Delete payment</button>
+            </div>
+        </div>
+    </form>
+    {% else %}
+    <form id="restore_payment_form" class="col s12" method="POST" action="{% url 'restore_payment' group_id %}">
+        {% csrf_token %}
+        {{ restore_form.payment }}
+        <div class="row">
+            <div class="input-field">
+                <button id="input_restore" class="btn-large btn-auth red" name="submit" type="submit">Restore payment</button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    <br>
+</div>
+{% endblock content %}
+
+{% block help_button %}
+    {% include "quits/snippets/help_button_payments.html" %}
+{% endblock help_button %}
+
+{% block page_scripts %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: true, // Creates a dropdown to control year
+    onStart: function () {
+        var date = new Date();
+        this.set('select', [date.getFullYear(), date.getMonth(), date.getDate()]);
+    },
+    clear: '',
+    close: 'OK',
+    format: 'dd mmmm, yyyy',
+});
+</script>
+<script src="{% static 'js/inittooltip.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/switch_confirm.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/check_all.js' %}" type="text/javascript"></script>
+{% endblock page_scripts %}

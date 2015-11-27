@@ -1,0 +1,42 @@
+{% extends "quits/base.html" %}
+{% load quits_extras %}
+
+{% block content %}
+<div class="row">
+    <h2 class="header center green-text text-darken-3">Edit your details</h2>
+    <form id="edit_profile_form" class="col s12" method="POST" action="">
+        <div class="row">
+            <div class="col s12 m8 l6 offset-m2 offset-l3">
+                <div class="row center no-margin-bottom">
+                    <div class="input-field col s12">
+                        {{ edit_profile_form.first_name|html_placeholder:"First name" }}
+                        {{ edit_profile_form.first_name.errors }}
+                    </div>
+                </div>
+                <div class="row center no-margin-bottom">
+                    <div class="input-field col s12">            
+                        {{ edit_profile_form.last_name|html_placeholder:"Last name" }}
+                        {{ edit_profile_form.last_name.errors }}
+                    </div>
+                </div>
+                <div class="row no-margin-bottom center">
+                    <div class="input-field col s12">
+                        {{ add_email_form.email|html_placeholder:"Email address" }}
+                        {{ add_email_form.email.errors|customise_error_message }}
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="input-field col s12">
+                        <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_profile' %}">Cancel</a>
+                        {% csrf_token %}
+                        <input id="input_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Save changes">
+                    </div>
+                </div>
+                <div class="row center no-margin-bottom">
+                    <a class="secondaryAction btn-large btn-auth red" href="{% url 'account_reset_password' %}">Reset Password</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

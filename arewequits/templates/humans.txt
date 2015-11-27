@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Michael Boyle -- Ideas Man -- <twitter>
+    William Clark -- Developer -- <twitter>
+
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    Django
+    HTML5, CSS3
+    jQuery, Modernizr
+    Materializecss

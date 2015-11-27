@@ -1,0 +1,50 @@
+{% load materializecss %}
+{% load quits_extras %}
+
+<form id="add_members_form" class="col s12" method="POST" action="{% url 'add_members' group_id %}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col s12 m10 offset-m1">
+            <div class="row no-margin-bottom center">
+                {% if form.contacts %}
+                <div class="input-field col s12 m6">
+                    <br>
+                    {{ form.contacts|materializecss }}
+                    <br><br><br>
+                </div>
+                <div class="input-field col s12 m6">
+                {% else %}
+                <div class="input-field col s12 m6 offset-m3">
+                {% endif %}
+                    <div id="input_emails">
+                        <br>
+                        <br>
+                        {{ form.emails_0 }}
+                        {{ form.emails_0.errors|customise_error_message }}
+                        <br>
+                        {{ form.emails_1 }}
+                        {{ form.emails_1.errors|customise_error_message }}
+                        <br>
+                        {{ form.emails_2 }}
+                        {{ form.emails_2.errors|customise_error_message }}
+                        <br>
+                        {{ form.emails_3 }}
+                        {{ form.emails_3.errors|customise_error_message }}
+                        <br>
+                        {{ form.emails_4 }}
+                        {{ form.emails_4.errors|customise_error_message }}
+                        <label for="input_emails" class="left-align">Invite members by email address (we'll send them an email if they're not already signed up)</label>
+                    </div>
+                </div>
+                {{ form.non_field_errors }}
+            </div>
+            <br>
+            <div class="row center">
+                <div class="col s12 center">
+                    <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_group' group_id %}">Cancel</a>
+                    <input id="input_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Add members">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

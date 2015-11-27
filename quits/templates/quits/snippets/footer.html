@@ -1,0 +1,35 @@
+<footer class="page-footer grey darken-3">
+    <div class="container hide-on-small-only">
+        <div class="row">
+            <div class="col s12 m6">
+                <ul>
+                    <li><a id="footer_about_page" class="grey-text text-lighten-3" href="{% url 'about' %}">About</a></li>
+                    <li><a id="footer_contact_page" class="grey-text text-lighten-3" href="mailto:arewequits@gmail.com" target="_blank">Contact</a></li>
+                    <li><a id="footer_tos" class="modal-trigger grey-text text-lighten-3" href="#modal-tos">Terms of service</a></li>
+                </ul>
+            </div>
+            <div class="col s12 m6">
+                <ul>
+                    <li><a id="footer_facebook" class="grey-text text-lighten-3" href="http://www.facebook.com/arewequits/" target="_blank">Follow us on Facebook</a></li>
+                    <li><a id="footer_twitter" class="grey-text text-lighten-3" href="http://www.twitter.com/arewequits" target="_blank">Follow us on Twitter</a></li>
+                    <li><a id="footer_blog" class="grey-text text-lighten-3" href="{% url 'zinnia:entry_archive_index' %}" target="_blank">Read our blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+        © 2015 AreWeQuits?
+        </div>
+    </div>
+</footer>
+
+
+<div id="modal-tos" class="modal bottom-sheet modal-fixed-footer">
+    <div class="modal-content">
+        {% include "quits/text/tos.html" %}
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close btn-flat">Close</a>
+    </div>
+</div>

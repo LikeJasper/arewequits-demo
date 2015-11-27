@@ -1,0 +1,4 @@
+-r base.txt
+coverage==3.7.1
+green==1.9.0
+selenium==2.46.1

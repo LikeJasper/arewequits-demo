@@ -1,0 +1,73 @@
+{% extends "quits/base.html" %}
+{% load quits_extras %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="header center col s12 green-text text-darken-3">Edit group</h2>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s4"><a id="id_edit_details_tab" class="active" href="#id_edit_details">Edit details</a></li>
+          <li class="tab col s4"><a id="id_add_members_tab" class="active" href="#id_add_members">Add members</a></li>
+          <li class="tab col s4"><a id="id_delete_group_tab" href="#id_delete_group">Delete group</a></li>
+        </ul>
+      </div>
+      <div id="id_edit_details" class="col s12">
+        <form id="edit_group_form" class="col s12" action="" method="POST">
+            <div class="container">
+                <div class="row no-margin-bottom">
+                    <div class="input-field col s12 m8 l6 offset-m2 offset-l3">
+                        {{ group_form.name|html_placeholder:"Group name"|html_class:"validate" }}
+                    </div>
+                </div>
+                <div class="row no-margin-bottom">
+                    <div class="input-field col s12 m8 l6 offset-m2 offset-l3">
+                        {{ quits_group_form.currency }}
+                    </div>
+                </div>
+                <div class="row no-margin-bottom center">
+                    <div class="input-field col s12">
+                        <a id="cancel_button" class="btn-large btn-mob-wide grey darken-3" href="{% url 'view_group' group_id %}">Cancel</a>
+                        {% csrf_token %}
+                        <input id="input_edit_group_submit" class="btn-large btn-mob-wide green" name="submit" type="submit" value="Save changes">
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div id="id_add_members" class="col s12">
+        {% include "quits/snippets/add_members_form.html" with form=add_members_form %}
+      </div>
+      <div id="id_delete_group" class="col s12">
+        <form id="delete_group_form" class="col s12" method="POST" action="{% url 'delete_group' group_id %}">
+            {% csrf_token %}
+            {{ delete_form.group }}
+            <div class="row">
+                <div class="switch">
+                <br>
+                    <label>
+                      <input class="switch-confirm" type="checkbox">
+                      <span id="id_enable_delete" class="lever"></span>
+                      Enable delete button
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="input_delete" class="btn-large btn-auth disabled" name="submit" type="submit" value="Delete group" disabled>
+                </div>
+            </div>
+        </form>
+        <a id="cancel_button" class="btn-large grey darken-3" href="{% url 'view_group' group_id %}">Cancel</a>
+      </div>
+    </div>
+{% endblock content %}
+
+{% block page_scripts %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+<script src="{% static 'js/switch_confirm.js' %}" type="text/javascript"></script>
+{% endblock page_scripts %}
